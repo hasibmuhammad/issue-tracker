@@ -69,7 +69,4 @@ const fetchIssues = () => {
                               </div>`;
     }
   }
-  else {
-    return;
-  }
 }
