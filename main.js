@@ -38,24 +38,27 @@ const deleteIssue = id => {
 
 const fetchIssues = () => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const openIssues = issues.filter(issue => issue.status !== 'Closed');
-  document.getElementById('openIssue').innerText = openIssues.length;
-  document.getElementById('totalIssue').innerText = `(${issues.length})`;
-  const issuesList = document.getElementById('issuesList');
-  issuesList.innerHTML = '';
 
-  for (var i = 0; i < issues.length; i++) {
-    const { id, description, severity, assignedTo, status } = issues[i];
+  if (issues != null) {
+    const openIssues = issues.filter(issue => issue.status !== 'Closed');
+    document.getElementById('openIssue').innerText = openIssues.length;
+    document.getElementById('totalIssue').innerText = `(${issues.length})`;
     
-    let isOpen = `<h3>${description}</h3>`;
+    const issuesList = document.getElementById('issuesList');
+    issuesList.innerHTML = '';
 
-    if (status === 'Closed') {
+    for (var i = 0; i < issues.length; i++) {
+      const { id, description, severity, assignedTo, status } = issues[i];
 
-      isOpen = `<h3><strike>${description}</strike> </h3>`;
+      let isOpen = `<h3>${description}</h3>`;
 
-    }
+      if (status === 'Closed') {
 
-    issuesList.innerHTML +=   `<div class="well">
+        isOpen = `<h3><strike>${description}</strike> </h3>`;
+
+      }
+
+      issuesList.innerHTML += `<div class="well">
                               <h6>Issue ID: ${id} </h6>
                               <p><span class="label label-info"> ${status} </span></p>
                               ${isOpen}
@@ -64,5 +67,6 @@ const fetchIssues = () => {
                               <a href="#" onclick="setStatusClosed(${id})" class="btn btn-warning">Close</a>
                               <a href="#" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
+    }
   }
 }
