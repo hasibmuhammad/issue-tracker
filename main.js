@@ -39,11 +39,11 @@ const deleteIssue = id => {
 const fetchIssues = () => {
   const issues = JSON.parse(localStorage.getItem('issues'));
 
-  if (issues != null) {
+  if (issues !== null) {
     const openIssues = issues.filter(issue => issue.status !== 'Closed');
     document.getElementById('openIssue').innerText = openIssues.length;
     document.getElementById('totalIssue').innerText = `(${issues.length})`;
-    
+
     const issuesList = document.getElementById('issuesList');
     issuesList.innerHTML = '';
 
@@ -68,5 +68,8 @@ const fetchIssues = () => {
                               <a href="#" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
     }
+  }
+  else {
+    return;
   }
 }
